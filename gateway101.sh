@@ -12,9 +12,11 @@ nmcli -t -f NAME,DEVICE connection show | while IFS=: read name dev; do
     if [ "$dev" = "$PRIMARY_DEV" ]; then
       echo "[KEEP]   $name ($dev)"
       nmcli connection modify "$name" ipv4.never-default no
+      nmcli connection modify "$name" ipv4.route-metric 101
     else
       echo "[DISABLE] $name ($dev)"
       nmcli connection modify "$name" ipv4.never-default yes
+      nmcli connection modify "$name" ipv4.ignore-auto-routes yes
     fi
   fi
 done
