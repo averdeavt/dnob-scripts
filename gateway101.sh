@@ -29,6 +29,10 @@ echo
 echo "Restarting NetworkManager..."
 systemctl restart NetworkManager
 
+
+echo "Waiting for network to settle..."
+sleep 3
+
 echo
 echo "=== Result ==="
 ip route | grep default
