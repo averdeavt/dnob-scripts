@@ -6,8 +6,8 @@
 #   sudo bash install-companion.sh             — install
 #   sudo bash install-companion.sh --uninstall — remove Companion (keeps config/data)
 #
-# Override version:
-#   COMPANION_VERSION=4.2.5 sudo bash install-companion.sh
+# Before running: download Companion Linux x64 tar.gz from https://user.bitfocus.io/download
+# and save it to ~/Downloads — no renaming needed, any version will be detected automatically.
 
 set -e
 
@@ -95,7 +95,6 @@ fi
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
-COMPANION_VERSION="${COMPANION_VERSION:-4.2.5}"
 COMPANION_ARCH="x64"
 if [ "$ARCH" = "arm64" ]; then
     COMPANION_ARCH="arm64"
@@ -109,7 +108,7 @@ LAUNCHER_SCRIPT="/usr/local/bin/companion-status"
 ADMIN_PORT="8000"
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo " Bitfocus Companion ${COMPANION_VERSION} — Desktop Service Installer"
+echo " Bitfocus Companion — Desktop Service Installer"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo " Install dir   : $INSTALL_DIR"
@@ -135,24 +134,26 @@ apt-get clean
 # ── Download ──────────────────────────────────────────────────────────────────
 
 echo ""
-echo "[ 2/8 ] Checking for Companion v${COMPANION_VERSION} download..."
+echo "[ 2/8 ] Looking for Companion download in ~/Downloads..."
 
-TARBALL="$REAL_HOME/Downloads/companion-linux-${COMPANION_ARCH}-${COMPANION_VERSION}.tar.gz"
-DOWNLOAD_URL="https://user.bitfocus.io/companion-v${COMPANION_VERSION}-linux-${COMPANION_ARCH}.tar.gz"
+# Accept any companion linux tar.gz regardless of version naming
+TARBALL=$(ls "$REAL_HOME/Downloads"/companion-linux-${COMPANION_ARCH}-*.tar.gz 2>/dev/null | sort -V | tail -n1)
 
-if [ -f "$TARBALL" ]; then
+if [ -n "$TARBALL" ] && [ -f "$TARBALL" ]; then
+    # Extract version from filename for display purposes
+    COMPANION_VERSION=$(basename "$TARBALL" | grep -oP '\d+\.\d+\.\d+' | head -n1)
     echo "        Found: $TARBALL"
+    [ -n "$COMPANION_VERSION" ] && echo "        Version: $COMPANION_VERSION"
 else
     echo ""
-    echo "  Download file not found at:"
-    echo "  $TARBALL"
+    echo "  No Companion download found in $REAL_HOME/Downloads/"
+    echo "  Looking for any file matching: companion-linux-${COMPANION_ARCH}-*.tar.gz"
     echo ""
     echo "  The Bitfocus download portal requires a free account login."
     echo "  Please:"
     echo "    1. Go to https://user.bitfocus.io/download"
-    echo "    2. Log in and download the Linux ${COMPANION_ARCH} tar.gz for v${COMPANION_VERSION}"
-    echo "    3. Save it to your Downloads folder as:"
-    echo "       companion-linux-${COMPANION_ARCH}-${COMPANION_VERSION}.tar.gz"
+    echo "    2. Log in and download the Linux ${COMPANION_ARCH} tar.gz"
+    echo "    3. Save it to your Downloads folder (do not rename it)"
     echo "    4. Re-run this script."
     echo ""
     exit 1
