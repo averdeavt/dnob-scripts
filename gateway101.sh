@@ -20,15 +20,13 @@ nmcli -t -f NAME,DEVICE connection show | while IFS=: read name dev; do
 done
 
 echo
-echo "Removing existing default routes..."
+echo "Removing ALL default routes..."
 
-ip route | grep '^default' | while read line; do
-  dev=$(echo "$line" | awk '{print $5}')
-  if [ "$dev" != "$PRIMARY_DEV" ]; then
-    echo "Deleting default route on $dev"
-    ip route del default dev "$dev" 2>/dev/null
-  fi
-done
+ip route del default 2>/dev/null
+
+echo "Restarting NetworkManager..."
+systemctl restart NetworkManager
+
 
 echo
 echo "Restarting NetworkManager..."
