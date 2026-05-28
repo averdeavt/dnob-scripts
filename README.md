@@ -9,7 +9,7 @@ systemctl status companion
 
 Script:
 ```
-sudo bash <(curl -fsSL https://raw.githubusercontent.com/averdeavt/dnob-scripts/main/install-companion.sh)
+curl -fsSL https://raw.githubusercontent.com/averdeavt/dnob-scripts/main/install-companion.sh -o /tmp/install-companion.sh && sudo bash /tmp/install-companion.sh
 ```
 
 
