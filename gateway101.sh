@@ -23,12 +23,7 @@ done
 
 echo
 echo "Removing ALL default routes..."
-
 ip route del default 2>/dev/null
-
-echo "Restarting NetworkManager..."
-systemctl restart NetworkManager
-
 
 echo
 echo "Restarting NetworkManager..."
