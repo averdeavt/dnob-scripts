@@ -280,7 +280,7 @@ chmod +x "$LAUNCHER_SCRIPT"
 mkdir -p "$REAL_HOME/Desktop"
 cat > "$REAL_HOME/Desktop/Companion.desktop" << EOF
 [Desktop Entry]
-Name=Companion
+Name=Companion-check
 Comment=Bitfocus Companion
 Exec=$LAUNCHER_SCRIPT
 Type=Application
@@ -293,7 +293,7 @@ chown "$REAL_USER:$REAL_USER" "$REAL_HOME/Desktop/Companion.desktop"
 
 cat > /usr/share/applications/companion.desktop << EOF
 [Desktop Entry]
-Name=Companion
+Name=Companion-check
 Comment=Bitfocus Companion
 Exec=$LAUNCHER_SCRIPT
 Type=Application
