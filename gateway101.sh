@@ -32,3 +32,11 @@ systemctl restart NetworkManager
 echo
 echo "=== Result ==="
 ip route | grep default
+
+COUNT=$(ip route | grep -c '^default')
+
+if [ "$COUNT" -eq 1 ]; then
+  echo "✅ Success: exactly one default route"
+else
+  echo "❌ Warning: $COUNT default routes detected"
+fi
