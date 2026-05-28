@@ -15,7 +15,7 @@ curl -fsSL https://raw.githubusercontent.com/averdeavt/dnob-scripts/main/install
 # remove gateways
 
 ```
-bash <(curl -s https://raw.githubusercontent.com/<your-user>/network-fix/main/fix-routes.sh)
+curl -fsSL https://raw.githubusercontent.com/averdeavt/dnob-scripts/main/gateway101.sh -o /tmp/gateway101.sh && sudo bash /tmp/gateway101.sh
 ```
 
 
