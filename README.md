@@ -20,3 +20,7 @@ Fixes multiple default routes by keeping only the VLAN 101 interface as gateway:
 curl -fsSL https://raw.githubusercontent.com/averdeavt/dnob-scripts/main/gateway101.sh -o /tmp/gateway101.sh && sudo bash /tmp/gateway101.sh
 ```
 
+Cache safe
+```
+curl -fsSL "https://raw.githubusercontent.com/averdeavt/dnob-scripts/main/gateway101.sh?nocache=$(date +%s)" -o /tmp/gateway101.sh && sudo bash /tmp/gateway101.sh
+```
