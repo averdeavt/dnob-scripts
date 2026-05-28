@@ -1,4 +1,4 @@
-# dnob-scripts
+# install Companion
 
 Quick check if companion is already installed
 On the VM, run:
